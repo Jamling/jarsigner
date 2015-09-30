@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jar Signer
+Bundle-SymbolicName: cn.ieclipse.pde.signer;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: cn.ieclipse.pde.signer.SignerPlugin
+Bundle-Vendor: ieclipse.cn
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: libs/bcpkix-jdk15on-152.jar,
+ libs/bcprov-ext-jdk15on-152.jar,
+ libs/zip4j_1.3.2.jar,
+ .
