@@ -18,8 +18,9 @@
    </license>
 
    <url>
-      <update label="%updateSiteName" url="http://ieclipse.cn/update/jarsigner"/>
-      <discovery label="%updateSiteName" url="http://ieclipse.cn/updates/jarsigner"/>
+      <update label="%updateSiteName" url="http://ieclipse.cn/updates/"/>
+      <discovery label="%updateSiteName" url="http://ieclipse.cn/updates/"/>
+      <discovery label="jamling.github.io" url="http://jamling.github.io/updates/"/>
    </url>
 
    <requires>
@@ -33,7 +34,7 @@
          id="cn.ieclipse.pde.signer"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0"
          unpack="false"/>
 
 </feature>
