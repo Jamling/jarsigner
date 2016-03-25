@@ -174,6 +174,6 @@ public class SignApkPage extends WizardPage {
     
     @Override
     public boolean isPageComplete() {
-        return super.isPageComplete();
+        return super.isPageComplete() && check();
     }
 }

@@ -8,7 +8,7 @@
             allPopups="false"
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <command
-               commandId="cn.ieclipse.pde.signer.command1"
+               commandId="cn.ieclipse.pde.signer.command.sign"
                label="Sign"
                style="push">
          </command>
@@ -19,7 +19,7 @@
       <command
             categoryId="org.eclipse.ui.category.window"
             defaultHandler="cn.ieclipse.pde.signer.handler.SignHandler"
-            id="cn.ieclipse.pde.signer.command1"
+            id="cn.ieclipse.pde.signer.command.sign"
             name="Sign">
       </command>
    </extension>

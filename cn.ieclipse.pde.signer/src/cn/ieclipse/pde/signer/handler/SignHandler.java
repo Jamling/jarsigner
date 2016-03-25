@@ -35,6 +35,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import cn.ieclipse.pde.signer.Const;
 import cn.ieclipse.pde.signer.wizard.SignApkWizard;
 import cn.ieclipse.pde.signer.wizard.SignJarWizard;
 import cn.ieclipse.pde.signer.wizard.SignPluginWizard;
@@ -43,8 +44,7 @@ import cn.ieclipse.pde.signer.wizard.SignPluginWizard;
  * Sign Handler
  * 
  * @author Jamling
- * @date 2015年8月31日
- *       
+ *         
  */
 public class SignHandler extends AbstractHandler {
     
@@ -56,7 +56,8 @@ public class SignHandler extends AbstractHandler {
      * ExecutionEvent)
      */
     public Object execute(ExecutionEvent event) throws ExecutionException {
-        IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+        IWorkbenchWindow window = HandlerUtil
+                .getActiveWorkbenchWindowChecked(event);
         ISelection sel = window.getSelectionService().getSelection();
         if (sel instanceof IStructuredSelection) {
             Object obj = ((IStructuredSelection) sel).getFirstElement();
@@ -68,10 +69,10 @@ public class SignHandler extends AbstractHandler {
                 IResource resource = (IResource) obj;
                 String file = resource.getLocation().toOSString();
                 if (file != null) {
-                    if (file.endsWith(".jar")) {
+                    if (file.endsWith(Const.EXT_JAR)) {
                         openJar(file);
                     }
-                    else if (file.endsWith(".apk")) {
+                    else if (file.endsWith(Const.EXT_APK)) {
                         openAndroid(file);
                     }
                     else {
@@ -96,17 +97,18 @@ public class SignHandler extends AbstractHandler {
     
     private void openProject(IProject prj, IJavaProject jprj) {
         try {
-            if (prj.hasNature("com.android.ide.eclipse.adt.AndroidNature")) {
+            if (prj.hasNature("com.android.ide.eclipse.adt.AndroidNature")) { //$NON-NLS-1$
                 IPath p = prj.getLocation();
                 if (jprj == null) {
                     jprj = JavaCore.create(prj);
                 }
-                IPath bin = jprj.getOutputLocation().removeFirstSegments(1).removeLastSegments(1);
+                IPath bin = jprj.getOutputLocation().removeFirstSegments(1)
+                        .removeLastSegments(1);
                 File file = new File(p.append(bin).toOSString());
-                File apk = new File(file, prj.getName() + ".apk");
+                File apk = new File(file, prj.getName() + Const.EXT_APK);
                 openAndroid(apk.getAbsolutePath());
             }
-            else if (prj.hasNature("org.eclipse.pde.UpdateSiteNature")) {
+            else if (prj.hasNature("org.eclipse.pde.UpdateSiteNature")) { //$NON-NLS-1$
                 openPlugin(prj.getLocation().toOSString());
             }
             else {
@@ -136,7 +138,9 @@ public class SignHandler extends AbstractHandler {
     }
     
     private void open(Wizard wizard) {
-        WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), wizard);
+        WizardDialog dialog = new WizardDialog(
+                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                wizard);
         dialog.open();
     }
 }

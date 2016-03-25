@@ -32,6 +32,7 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
+import cn.ieclipse.pde.signer.Const;
 import cn.ieclipse.pde.signer.handler.SignHandler;
 import cn.ieclipse.pde.signer.wizard.SignApkWizard;
 import cn.ieclipse.pde.signer.wizard.SignJarWizard;
@@ -76,14 +77,17 @@ public class SignAction implements IObjectActionDelegate {
             if (obj instanceof IProject) {
                 IProject prj = (IProject) obj;
                 try {
-                    if (prj.hasNature("com.android.ide.eclipse.adt.AndroidNature")) {
-                        
+                    if (prj.hasNature(
+                            "com.android.ide.eclipse.adt.AndroidNature")) {
+                            
                         IJavaProject jprj = JavaCore.create(prj);
                         String bin = jprj.getOutputLocation().toOSString();
-                        File apk = new File(new File(bin).getParentFile(), prj.getName() + ".apk");
+                        File apk = new File(new File(bin).getParentFile(),
+                                prj.getName() + Const.EXT_APK);
                         openAndroid(apk.getAbsolutePath());
                     }
-                    else if (prj.hasNature("org.eclipse.pde.UpdateSiteNature")) {
+                    else if (prj
+                            .hasNature("org.eclipse.pde.UpdateSiteNature")) {
                         openPlugin(prj.getLocation().toOSString());
                     }
                     else {
@@ -97,10 +101,10 @@ public class SignAction implements IObjectActionDelegate {
                 IResource resource = (IResource) obj;
                 String file = resource.getLocation().toOSString();
                 if (file != null) {
-                    if (file.endsWith(".jar")) {
+                    if (file.endsWith(Const.EXT_JAR)) {
                         openJar(file);
                     }
-                    else if (file.endsWith(".apk")) {
+                    else if (file.endsWith(Const.EXT_APK)) {
                         openAndroid(file);
                     }
                     else {

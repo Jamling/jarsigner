@@ -82,17 +82,20 @@ public class SignJarPage extends WizardPage {
         container.setLayout(new GridLayout(3, false));
         
         Label lblNewLabel = new Label(container, SWT.NONE);
-        lblNewLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+        lblNewLabel.setLayoutData(
+                new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
         lblNewLabel.setText("Source package:");
         
         textSrc = new Text(container, SWT.BORDER);
-        textSrc.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+        textSrc.setLayoutData(
+                new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         if (srcFile != null) {
             textSrc.setText(srcFile);
         }
         
         Button btnOpen = new Button(container, SWT.NONE);
-        GridData gd_btnOpen = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+        GridData gd_btnOpen = new GridData(SWT.FILL, SWT.CENTER, false, false,
+                1, 1);
         gd_btnOpen.widthHint = 75;
         btnOpen.setLayoutData(gd_btnOpen);
         btnOpen.addSelectionListener(new SelectionAdapter() {
@@ -109,14 +112,17 @@ public class SignJarPage extends WizardPage {
         btnOpen.setText("&Open");
         
         Label lblNewLabel_1 = new Label(container, SWT.NONE);
-        lblNewLabel_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+        lblNewLabel_1.setLayoutData(
+                new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
         lblNewLabel_1.setText("Dest package:");
         
         textDst = new Text(container, SWT.BORDER);
-        textDst.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        
+        textDst.setLayoutData(
+                new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+                
         Button btnSave = new Button(container, SWT.NONE);
-        btnSave.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+        btnSave.setLayoutData(
+                new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
         btnSave.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -130,11 +136,15 @@ public class SignJarPage extends WizardPage {
         btnSave.setText("&Save");
         
         Label lblNewLabel_2 = new Label(container, SWT.NONE);
-        lblNewLabel_2.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+        lblNewLabel_2.setLayoutData(
+                new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
         lblNewLabel_2.setText("Old signatures:");
         
-        textSignature = new Text(container, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.MULTI);
-        textSignature.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+        textSignature = new Text(container,
+                SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.MULTI );
+        textSignature.setEditable(false);
+        textSignature.setLayoutData(
+                new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
         new Label(container, SWT.NONE);
         new Label(container, SWT.NONE);
         new Label(container, SWT.NONE);
@@ -152,13 +162,15 @@ public class SignJarPage extends WizardPage {
                 onDestPackageChanged();
             }
         });
+        
     }
     
     protected void onSourcePackageChanged() {
         String path = getSourcePackage();
         int pos = path.lastIndexOf(".");
         if (pos >= 0 && Utils.isEmpty(textDst)) {
-            String dst = path.substring(0, pos) + "_signed" + path.substring(pos);
+            String dst = path.substring(0, pos) + "_signed"
+                    + path.substring(pos);
             textDst.setText(dst);
         }
         setPageComplete(check());
@@ -171,24 +183,28 @@ public class SignJarPage extends WizardPage {
             jar = new JarFile(file, true);
         } catch (Exception e) {
             // e.printStackTrace();
-            textSignature.setText("Can't read signature info from source package");
+            textSignature
+                    .setText("Can't read signature info from source package");
             return;
         } finally {
             if (jar != null) {
-                try {
-                    jar.close();
-                } catch (IOException e) {
-                
-                }
+                // JDK issue, jdk 8 fix this.
+                // try {
+                // jar.close();
+                // } catch (IOException e) {
+                //
+                // }
             }
         }
         JarEntry je = null;
         // je =
         // jar.getJarEntry("res/drawable-mdpi/eposode_list_item_focsed.png");
         if (je == null) {
-            for (Enumeration<JarEntry> e = jar.entries(); e.hasMoreElements();) {
+            for (Enumeration<JarEntry> e = jar.entries(); e
+                    .hasMoreElements();) {
                 JarEntry entry = e.nextElement();
-                if (!BcpSigner.stripPattern.matcher(entry.getName()).matches()) {
+                if (!BcpSigner.stripPattern.matcher(entry.getName())
+                        .matches()) {
                     je = entry;
                     break;
                 }
@@ -216,32 +232,46 @@ public class SignJarPage extends WizardPage {
                 MessageDigest md = null;
                 for (Certificate c : cs) {
                     i++;
-                    sb.append(String.format("====== Certificate %d ======\n", i));
+                    sb.append(
+                            String.format("====== Certificate %d ======\n", i));
                     if (c instanceof X509Certificate) {
                         X509Certificate x = (X509Certificate) c;
-                        sb.append(String.format("Issuer: %s\n", x.getIssuerDN().getName()));
+                        sb.append(String.format("Issuer: %s\n",
+                                x.getIssuerDN().getName()));
                     }
                     try {
                         md = MessageDigest.getInstance("md5");
-                        sb.append(String.format("MD5 finger: %s\n", KeyTool.bin2hex(md.digest(c.getEncoded()))));
+                        sb.append(String.format("MD5 finger: %s\n",
+                                KeyTool.bin2hex(md.digest(c.getEncoded()))));
                         md = MessageDigest.getInstance("sha1");
-                        sb.append(String.format("SHA1 finger: %s", KeyTool.bin2hex(md.digest(c.getEncoded()))));
+                        sb.append(String.format("SHA1 finger: %s",
+                                KeyTool.bin2hex(md.digest(c.getEncoded()))));
                     } catch (Exception e) {
                     
                     }
                 }
                 textSignature.setText(sb.toString());
-                return;
             }
-            textSignature.setText(
-                    "Can't read signature info from source package or there is no signature info in source package");
+            else {
+                textSignature.setText(
+                        "Can't read signature info from source package or there is no signature info in source package");
+            }
+            if (jar != null) {
+                try {
+                    jar.close();
+                } catch (IOException e) {
+                
+                }
+            }
         }
         
     }
     
     protected void onDestPackageChanged() {
-        if (getDestPackage().length() == 0 || getDestPackage().equals(getSourcePackage())) {
-            setMessage("The dest package is same as source package or none, it will overwrite source package",
+        if (getDestPackage().length() == 0
+                || getDestPackage().equals(getSourcePackage())) {
+            setMessage(
+                    "The dest package is same as source package or none, it will overwrite source package",
                     IMessageProvider.WARNING);
         }
         else {
@@ -269,11 +299,12 @@ public class SignJarPage extends WizardPage {
             return false;
         }
         
-        if (!new File(getSourcePackage()).exists() || new File(getSourcePackage()).isDirectory()) {
+        if (!new File(getSourcePackage()).exists()
+                || new File(getSourcePackage()).isDirectory()) {
             setErrorMessage("Invalid source package.");
             return false;
         }
-        
+        onDestPackageChanged();
         setErrorMessage(null);
         return true;
     }
@@ -281,5 +312,10 @@ public class SignJarPage extends WizardPage {
     @Override
     public boolean isPageComplete() {
         return super.isPageComplete() && check();
+    }
+    
+    @Override
+    public boolean canFlipToNextPage() {
+        return super.canFlipToNextPage() && check();
     }
 }

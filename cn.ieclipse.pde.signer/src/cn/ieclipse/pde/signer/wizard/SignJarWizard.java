@@ -18,6 +18,9 @@ package cn.ieclipse.pde.signer.wizard;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 
+import cn.ieclipse.pde.explorer.Explorer;
+import cn.ieclipse.pde.explorer.ExplorerPlugin;
+
 /**
  * Sign jar wizard.
  * 
@@ -53,16 +56,20 @@ public class SignJarWizard extends CommonSignWizard {
         String output = page0.getDestPackage();
         String msg = super.pcbSign(input, output, null);
         if (msg == null) {
-            boolean confirm = MessageDialog.openConfirm(getShell(), "Sign Successfully!",
-                    String.format("Sign successfully! The output package save to %s, would you like to explorer?",
+            boolean confirm = MessageDialog.openConfirm(getShell(),
+                    "Sign Successfully!",
+                    String.format(
+                            "Sign successfully! The output package save to %s, would you like to explorer?",
                             page0.getDestPackage()));
             if (confirm) {
-                
+                Explorer e = new Explorer(page0.getDestPackage());
+                ExplorerPlugin.explorer(e.getFolder(), e.getFile());
             }
             page1.saveConf(cfgFile);
         }
         else {
-            MessageDialog.openError(getShell(), "Error", String.format("Error while sign %s, error : %s", input, msg));
+            MessageDialog.openError(getShell(), "Error", String
+                    .format("Error while sign %s, error : %s", input, msg));
         }
     }
 }
