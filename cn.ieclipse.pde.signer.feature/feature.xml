@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="cn.ieclipse.pde.singer.feature"
+      id="cn.ieclipse.pde.signer.feature"
       label="JarSigner"
       version="1.0.0"
       provider-name="ieclipse.cn">
@@ -20,7 +20,7 @@
    <url>
       <update label="%updateSiteName" url="http://ieclipse.cn/updates/"/>
       <discovery label="%updateSiteName" url="http://ieclipse.cn/updates/"/>
-      <discovery label="jamling.github.io" url="http://jamling.github.io/updates/"/>
+      <discovery label="jamling.github.io" url="https://jamling.github.io/updates/"/>
    </url>
 
    <requires>
@@ -28,6 +28,7 @@
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="cn.ieclipse.pde.explorer"/>
    </requires>
 
    <plugin
