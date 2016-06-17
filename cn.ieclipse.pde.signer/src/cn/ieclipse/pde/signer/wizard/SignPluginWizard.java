@@ -55,7 +55,7 @@ public class SignPluginWizard extends CommonSignWizard {
         File[] features = new File(f, "features").listFiles(jarFilter);
         File[] plugins = new File(f, "plugins").listFiles(jarFilter);
         if (features != null) {
-            for (File file : plugins) {
+            for (File file : features) {
                 input = file.getAbsolutePath();
                 msg = pcbSign(input, null, "ECLIPSE_");
                 if (msg != null) {

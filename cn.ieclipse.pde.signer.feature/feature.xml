@@ -18,9 +18,9 @@
    </license>
 
    <url>
-      <update label="%updateSiteName" url="http://ieclipse.cn/updates/"/>
-      <discovery label="%updateSiteName" url="http://ieclipse.cn/updates/"/>
-      <discovery label="jamling.github.io" url="https://jamling.github.io/updates/"/>
+      <update label="%updateSiteName" url="http://dl.ieclipse.cn/updates/"/>
+      <discovery label="%updateSiteName" url="http://dl.ieclipse.cn/updates/"/>
+      <discovery label="jamling.github.io" url="https://jamling.github.io/PDESite/updates/"/>
    </url>
 
    <requires>
