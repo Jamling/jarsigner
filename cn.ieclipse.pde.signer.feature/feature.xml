@@ -2,7 +2,7 @@
 <feature
       id="cn.ieclipse.pde.signer.feature"
       label="JarSigner"
-      version="1.0.0"
+      version="1.0.1"
       provider-name="ieclipse.cn">
 
    <description>
