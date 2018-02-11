@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jar Signer
 Bundle-SymbolicName: cn.ieclipse.pde.signer;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1.qualifier
 Bundle-Activator: cn.ieclipse.pde.signer.SignerPlugin
 Bundle-Vendor: ieclipse.cn
 Require-Bundle: org.eclipse.ui,
